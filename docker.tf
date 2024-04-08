@@ -23,7 +23,7 @@ resource "docker_image" "mariadb_image" {
 }
 
 resource "docker_container" "mariadb_container" {
-  image = docker_image.mariadb_image.latest
+  image = docker_image.mariadb_image.name
   name  = "mariadb"
   env = [
     "MYSQL_ROOT_PASSWORD=${var.mariadb_root_password}",
@@ -32,11 +32,11 @@ resource "docker_container" "mariadb_container" {
     "MYSQL_PASSWORD=${var.wp_db_password}",
   ]
   volumes {
-    volume_name    = docker_volume.db_data.name
+    volume_name    = docker_volume.mariadb_volume.name
     container_path = "/var/lib/mysql"
   }
   networks_advanced {
-    name = docker_network.wp_network.name
+    name = docker_network.wordpress_network.name
   }
 }
 
@@ -46,7 +46,7 @@ resource "docker_image" "wordpress_image" {
 }
 
 resource "docker_container" "wordpress_container" {
-  image = docker_image.wordpress_image.latest
+  image = docker_image.wordpress_image.name
   name  = "wordpress"
   env = [
     "WORDPRESS_DB_HOST=mariadb",
@@ -59,7 +59,7 @@ resource "docker_container" "wordpress_container" {
     external = 8000
   }
   networks_advanced {
-    name = docker_network.wp_network.name
+    name = docker_network.wordpress_network.name
   }
   depends_on = [
     docker_container.mariadb_container,
