@@ -77,7 +77,7 @@ resource "docker_container" "wordpress_container" {
 }
 ```
 
-####A destacar
+**A destacar**
 - **Proveedor Terraform para Docker**: Configura el proveedor `docker` con la versión específica requerida para gestionar recursos de Docker.
 - **Recursos Docker**:
   - `docker_network` crea una red Docker que permite la comunicación entre los contenedores de WordPress y MariaDB.
@@ -109,7 +109,7 @@ variable "wp_db_password" {
   type        = string
 }
 ```
-####A destacar
+**A destacar**
 
 Se definen variables para configurar dinámicamente los contenedores de MariaDB y WordPress:
 - **mariadb_root_password**: Contraseña del usuario root para MariaDB.
@@ -127,7 +127,7 @@ wp_db_user            = "wordpress"
 wp_db_password        = "wordpress"
 ```
 
-####A destacar
+**A destacar**
 
 Este archivo proporciona valores predeterminados para las variables definidas en `variables.tf`, lo que facilita la inicialización y configuración rápida del entorno de despliegue. Los valores son:
 - `mariadb_root_password`, `wp_db_name`, `wp_db_user`, `wp_db_password`: Configurados para un entorno de prueba con el valor "wordpress". Estos valores deben ser cambiados en entornos de producción por razones de seguridad.
